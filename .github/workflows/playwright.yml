@@ -24,20 +24,12 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Cache JMeter
-        id: cache-jmeter
-        uses: actions/cache@v4
-        with:
-          path: /opt/apache-jmeter-5.6.3
-          key: jmeter-5.6.3
-
       - name: Install JMeter
-        if: steps.cache-jmeter.outputs.cache-hit != 'true'
         run: |
-          wget https://apache.org
+          wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.6.3.tgz
           sudo tar -xzf apache-jmeter-5.6.3.tgz -C /opt
           rm apache-jmeter-5.6.3.tgz
-
+      
       - name: Run JMeter Test
         run: |
           /opt/apache-jmeter-5.6.3/bin/jmeter.sh -n -t ./blazedemo.jmx \
