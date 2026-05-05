@@ -1,5 +1,7 @@
 name: JMeter Performance Tests
 
+run-name: JMeter - ${{ github.event.inputs.test_type }}
+
 on:
   workflow_dispatch:
     inputs:
@@ -35,13 +37,13 @@ jobs:
           /opt/apache-jmeter-5.6.3/bin/jmeter.sh -n -t ./blazedemo.jmx \
           -Jthreads_carga=${{ github.event.inputs.test_type == 'carga' && 250 || 0 }} \
           -Jthreads_pico=${{ github.event.inputs.test_type == 'pico' && 250 || 0 }} \
-          -l resultado.jtl -e -o logs
+          -l results-${{ github.event.inputs.test_type }}.jtl -e -o logs
 
       - name: Upload Results JTL (Artifact)
         uses: actions/upload-artifact@v4
         with:
           name: jmeter-results-jtl
-          path: resultado.jtl
+          path: results-${{ github.event.inputs.test_type }}.jtl
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
