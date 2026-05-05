@@ -4,7 +4,7 @@
 ## Pré-requisitos
 
 - Java 8 ou superior instalado
-- Apache JMeter 5.6.3 (incluído no projeto)
+- Apache JMeter 5.6.3 (Já deixei incluído no projeto)
 - Node.js e npm para executar scripts auxiliares
 
 
@@ -29,8 +29,8 @@ O projeto utiliza Apache JMeter para testes de performance no site BlazeDemo. A 
 ## Passo a Passo para Executar os testes
 
 1. Certifique-se de que Java 8+ está instalado e configurado.
-2. Execute `test:carga` para rodar os testes de performance (Carga) com JMeter.
-3. Execute `test:pico` para rodar os testes de performance (Pico) com JMeter.
+2. Execute `npm run test:load` para rodar os testes de performance (Carga) com JMeter.
+3. Execute `npm run test:spike` para rodar os testes de performance (Pico) com JMeter.
 4. Os resultados serão salvos em `resultado.jtl` e relatórios em `logs/`.
 5. Para limpar os arquivos gerados, execute `npm run limpar`.
 
@@ -42,10 +42,21 @@ O projeto utiliza Apache JMeter para testes de performance no site BlazeDemo. A 
 2. Selecione o workflow **JMeter Tests**
 3. Clique em **Run workflow**
 4. Escolha a branch (ex: main)
-5. Clique em **Run workflow**
+5. Escolha o tipo de teste
+6. Clique em **Run workflow**
 
 ### Visualizar relatório dos testes
 
 Após a execução:
 - O report é publicado automaticamente no GitHub Pages
 - Acesse o link em: https://thiagosouza10.github.io//blazedemo-performance-jmeter/
+
+## Cenários de Teste
+
+### Documentação
+
+**Cenário:**
+- Compra de passagem aérea - Passagem comprada com sucesso.
+
+**Critério de Aceitação:**
+- 250 requisições por segundo com um tempo de resposta 90th percentil inferior a 2 segundos.
