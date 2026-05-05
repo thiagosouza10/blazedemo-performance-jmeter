@@ -47,5 +47,5 @@ O projeto utiliza Apache JMeter para testes de performance no site BlazeDemo. A 
 ### Visualizar relatório dos testes
 
 Após a execução:
-- O relatório HTML é gerado na pasta `logs/`
-- Acesse o arquivo `logs/index.html` para visualizar os resultados 
+- O report é publicado automaticamente no GitHub Pages
+- Acesse o link em: https://github.com/thiagosouza10/blazedemo-performance-jmeter/
