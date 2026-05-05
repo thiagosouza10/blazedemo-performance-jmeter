@@ -30,7 +30,7 @@ jobs:
           test-plan-path: "./blazedemo.jmx"
           args: "-Jthreads_carga=${{ github.event.inputs.test_type == 'carga' && 250 || 0
             }} -Jthreads_pico=${{ github.event.inputs.test_type == 'pico' && 250
-            || 0 }} -n -t ./blazedemo.jmx -l resultado.jtl -e -o logs"
+            || 0 }} -e -o logs"
 
       - name: Upload Results JTL (Artifact)
         uses: actions/upload-artifact@v4
