@@ -1,0 +1,51 @@
+name: JMeter Performance Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_type:
+        description: "Escolha o tipo de teste para executar"
+        required: true
+        default: "carga"
+        type: choice
+        options:
+          - carga
+          - pico
+
+jobs:
+  performance-test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run JMeter Test
+        uses: QAInsights/PerfAction@v5.6.3
+        with:
+          test-plan-path: "./blazedemo.jmx"
+          args: "-Jthreads_carga=${{ github.event.inputs.test_type == 'carga' && 250 || 0
+            }} -Jthreads_pico=${{ github.event.inputs.test_type == 'pico' && 250
+            || 0 }} -n -t ./blazedemo.jmx -l resultado.jtl -e -o logs"
+
+      - name: Upload Results JTL (Artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: jmeter-results-jtl
+          path: resultado.jtl
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload HTML Report to Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./logs"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
