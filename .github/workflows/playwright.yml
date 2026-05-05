@@ -8,11 +8,11 @@ on:
       test_type:
         description: "Escolha o tipo de teste para executar"
         required: true
-        default: "carga"
+        default: "load-test"
         type: choice
         options:
-          - carga
-          - pico
+          - load-test
+          - spike-test
 
 jobs:
   performance-test:
@@ -26,18 +26,26 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install JMeter
+      - name: Run JMeter via Docker
         run: |
-          wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.6.3.tgz
-          sudo tar -xzf apache-jmeter-5.6.3.tgz -C /opt
-          rm apache-jmeter-5.6.3.tgz
+          THREADS_CARGA=0
+          THREADS_PICO=0
       
-      - name: Run JMeter Test
-        run: |
-          /opt/apache-jmeter-5.6.3/bin/jmeter.sh -n -t ./blazedemo.jmx \
-          -Jthreads_carga=${{ github.event.inputs.test_type == 'load-test' && 250 || 0 }} \
-          -Jthreads_pico=${{ github.event.inputs.test_type == 'spike-test' && 250 || 0 }} \
-          -l results-${{ github.event.inputs.test_type }}.jtl -e -o logs
+          if [ "${{ github.event.inputs.test_type }}" = "load-test" ]; then
+            THREADS_CARGA=250
+          else
+            THREADS_PICO=250
+          fi
+      
+          docker run --rm \
+            -v ${{ github.workspace }}:/test \
+            -w /test \
+            justb4/jmeter:5.6.3 \
+            -n -t blazedemo.jmx \
+            -Jthreads_carga=$THREADS_CARGA \
+            -Jthreads_pico=$THREADS_PICO \
+            -l results-${{ github.event.inputs.test_type }}.jtl \
+            -e -o logs
 
       - name: Upload Results JTL (Artifact)
         uses: actions/upload-artifact@v4
