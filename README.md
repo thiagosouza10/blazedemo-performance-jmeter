@@ -7,6 +7,14 @@
 - Apache JMeter 5.6.3 (Já deixei incluído no projeto)
 - Node.js e npm para executar scripts auxiliares
 
+## Documentação
+
+**Cenário:**
+- Compra de passagem aérea - Passagem comprada com sucesso no site https://www.blazedemo.com/.
+
+**Critério de Aceitação:**
+- 250 requisições por segundo com um tempo de resposta 90th percentil inferior a 2 segundos.
+
 
 ## Arquitetura
 
@@ -24,7 +32,7 @@ O projeto utiliza Apache JMeter para testes de performance no site BlazeDemo. A 
 | Pasta | Descrição |
 |-------|-----------|
 | `cenarios-de-testes/` | Cenários de teste documentados |
-| `evidências/` | Screenshots e vídeos de execuções |
+| `evidências/` | Relatórios HTML dos testes executados e também um relatório de feedback dos testes relatorio.md|
 
 ## Passo a Passo para Executar os testes
 
@@ -42,7 +50,7 @@ O projeto utiliza Apache JMeter para testes de performance no site BlazeDemo. A 
 2. Selecione o workflow **JMeter Tests**
 3. Clique em **Run workflow**
 4. Escolha a branch (ex: main)
-5. Escolha o tipo de teste
+5. Escolha o tipo de teste `test:load` ou `test:spike`
 6. Clique em **Run workflow**
 
 ### Visualizar relatório dos testes
@@ -50,13 +58,3 @@ O projeto utiliza Apache JMeter para testes de performance no site BlazeDemo. A 
 Após a execução:
 - O report é publicado automaticamente no GitHub Pages
 - Acesse o link em: https://thiagosouza10.github.io//blazedemo-performance-jmeter/
-
-## Cenários de Teste
-
-### Documentação
-
-**Cenário:**
-- Compra de passagem aérea - Passagem comprada com sucesso.
-
-**Critério de Aceitação:**
-- 250 requisições por segundo com um tempo de resposta 90th percentil inferior a 2 segundos.
