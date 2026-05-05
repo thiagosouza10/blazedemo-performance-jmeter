@@ -48,4 +48,4 @@ O projeto utiliza Apache JMeter para testes de performance no site BlazeDemo. A 
 
 Após a execução:
 - O report é publicado automaticamente no GitHub Pages
-- Acesse o link em: https://github.com/thiagosouza10/blazedemo-performance-jmeter/
+- Acesse o link em: https://thiagosouza10.github.io//blazedemo-performance-jmeter/
