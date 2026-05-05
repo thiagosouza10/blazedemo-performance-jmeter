@@ -24,13 +24,26 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Run JMeter Test
-        uses: QAInsights/PerfAction@v5.6.3
+      - name: Cache JMeter
+        id: cache-jmeter
+        uses: actions/cache@v4
         with:
-          test-plan-path: "./blazedemo.jmx"
-          args: "-Jthreads_carga=${{ github.event.inputs.test_type == 'carga' && 250 || 0
-            }} -Jthreads_pico=${{ github.event.inputs.test_type == 'pico' && 250
-            || 0 }} -e -o logs"
+          path: /opt/apache-jmeter-5.6.3
+          key: jmeter-5.6.3
+
+      - name: Install JMeter
+        if: steps.cache-jmeter.outputs.cache-hit != 'true'
+        run: |
+          wget https://apache.org
+          sudo tar -xzf apache-jmeter-5.6.3.tgz -C /opt
+          rm apache-jmeter-5.6.3.tgz
+
+      - name: Run JMeter Test
+        run: |
+          /opt/apache-jmeter-5.6.3/bin/jmeter.sh -n -t ./blazedemo.jmx \
+          -Jthreads_carga=${{ github.event.inputs.test_type == 'carga' && 250 || 0 }} \
+          -Jthreads_pico=${{ github.event.inputs.test_type == 'pico' && 250 || 0 }} \
+          -l resultado.jtl -e -o logs
 
       - name: Upload Results JTL (Artifact)
         uses: actions/upload-artifact@v4
