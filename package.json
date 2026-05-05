@@ -1,0 +1,23 @@
+{
+  "name": "blazedemo-performance-jmeter",
+  "version": "1.0.0",
+  "description": "Projeto de testes Performance Blaze Demo",
+  "homepage": "https://github.com/thiagosouza10/blazedemo-performance-jmeter#readme",
+  "bugs": {
+    "url": "https://github.com/thiagosouza10/blazedemo-performance-jmeter/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thiagosouza10/blazedemo-performance-jmeter.git"
+  },
+  "license": "MIT",
+  "author": "Thiago de Souza",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "apache-jmeter-5.6.3\\bin\\jmeter.bat -n -t blazedemo.jmx -l resultado.jtl -e -o logs",
+    "limpar": "rm -rf logs resultado.jtl jmeter.log",
+    "test:carga": "apache-jmeter-5.6.3\\bin\\jmeter.bat -n -t blazedemo.jmx -Jthreads_carga=250 -l resultado.jtl -e -o logs",
+    "test:pico": "apache-jmeter-5.6.3\\bin\\jmeter.bat -n -t blazedemo.jmx -Jthreads_pico=250 -l resultado.jtl -e -o logs"
+  }
+}
