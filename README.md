@@ -43,6 +43,8 @@ O projeto utiliza Apache JMeter para testes de performance no site BlazeDemo. A 
 5. Para limpar os arquivos gerados, execute `npm run limpar`.
 
 ## Rodando os testes no GitHub Actions
+OBS: Para executar os testes via GitHub Actions, é necessário adicionar o seu usuário como colaborador no repositório.
+Essa liberação é necessária para que os workflows funcionem corretamente no ambiente do projeto.
 
 ### Como executar manualmente
 
